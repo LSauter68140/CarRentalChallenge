@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/*css for the showCar.tsx*/
+
+.left{
+    display: flex;
+    flex-direction: column;
+    float: left;
+    width: 30%;
+    margin: 80px 0px 0px;
+}
+.right{
+    float: left;
+    width: 70%;
+    margin: 0;
+}
+
+.select{
+    margin: 20px auto;
+    width: max-content;
+}
+
+.select *,.select * * {
+    margin: 0px 5px;
+}

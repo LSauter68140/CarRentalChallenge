@@ -1,8 +1,15 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "drivy-frontend-test",
+  "version": "0.0.1",
+  "description": "Getaround Frontend Challenge",
+  "repository": "https://github.com/FloValence/react-cars-front-end-challenge",
+  "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "node server/index.js"
+  },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
@@ -10,17 +17,14 @@
     "@types/node": "^12.20.1",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "express": "^4.17.1",
+    "parcel-bundler": "^1.12.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
+    "styled-components": "^5.2.1",
     "typescript": "^4.1.5",
     "web-vitals": "^1.1.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

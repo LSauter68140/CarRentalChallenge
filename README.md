@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# Front-End Challenge
+This is a challenge to assert your level and way of thinking, don't spend to much time on it if you get stuck.
+Let us know how long you worked on test when sending it back.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Guidelines
 
-## Available Scripts
+- Make sure you have `git`, `node`, and `npm` or `yarn` installed locally
+- Clone this repo (do **not** fork it)
+- Solve the levels in ascending order
+- Only do one commit per level and include the `.git` directory when submitting your test
+- To start the app:
+- run `yarn install` or `npm install`
+- run `yarn start` or `npm run start`
+- Edit files in `./src`
 
-In the project directory, you can run:
+## Pointers
 
-### `npm start`
+You can have a look at the higher levels, but please do the simplest thing that could work for the level you're currently solving.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+We are interested in seeing code that is clean, extensible and robust, so don't overlook edge cases.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Please also note that all prices are stored as integers (in cents). Do not forget to format them if needed.
 
-### `npm test`
+We don't expect you to be a top-notch designer, but we want to see how you would handle some styling of this app. Do not hesitate to take inspiration from Getaround or anywhere else!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This test is oriented towards React and Typescript. If you want or need to add something to the setup, you'll find info on how to set it up in [Parcel's documentation](https://en.parceljs.org/recipes.html).
 
-### `npm run build`
+## Sending Your Results
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once you are done, please send your results to the person you are in touch with. (Remember, it should not be a fork).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can send your Github project link or zip your directory and send it via email.
+If you do not use Github, don't forget to attach your `.git` folder.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Good luck!
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Challenge
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We are building a car-sharing platform.
+Car owners can already list their car on our platform and backend developers have provided an API for us to query.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Our plan is now to let any person (let's call them "driver") see cars they could rent.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Level 1: fetching and displaying cars
 
-## Learn More
+For the first version of our app, we want drivers to see the cars they can rent. For every car returned by the backend, we want to display its picture, brand, model, price per day and price per km.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The API is accessible with a `GET` request at `/cars.json` on your local server.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Level 2: filtering by duration and distance
+
+Unfortunately, some cars are only available for short rentals (less than a given number of days or kilometers, defined by the owner).
+
+To only see available cars, drivers should be able to input the duration of their rental and the distance they plan on driving.
+
+The different values they should be able to select are:
+
+- duration (in days): between 1 and 30
+- distance (in km): 50, 100, 150, 200, 250, 300, ... up to 3000
+
+When drivers edit these inputs, another request to the API, with `duration` and `distance` query parameters, should be made. The API will only return available cars for the given parameters in the response. _Please do not use the `availability` fields of the response, they are only here for debugging purposes._
+
+### Level 3: calculate the rental price
+
+We heard of drivers complaining about not knowing the price for their rental. Unfortunately, the backend developers forgot to add this information so we'll have to calculate it ourselves and display it.
+
+The rental price is the sum of:
+
+- A time component: the number of rental days multiplied by the car's price per day
+- A distance component: the number of km multiplied by the car's price per km
+
+Let's calculate and display this price for every car.
+
+### Level 4: degressive pricing
+
+To be as competitive as possible, we decide to have decreasing pricing for longer rentals.
+
+New rules:
+
+- price per day decreases by 10% after 1 day
+- price per day decreases by 30% after 4 days
+- price per day decreases by 50% after 10 days
+
+Adapt the rental price computation to take these new rules into account.
