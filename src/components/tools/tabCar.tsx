@@ -50,8 +50,8 @@ export default function TabCar({ ...props }) {
     if (data.length === 0 || typeof data !== "object") return [];
 
     const firstObject = data.length > 0 ? data[0] : data;
-
     let keyArray: any[] = [];
+
     Object.keys(firstObject).forEach((ele) => {
       if (typeof firstObject[ele] !== "object") {
         keyArray.push(ele);
