@@ -1,4 +1,5 @@
 import React from "react";
+
 import { createStyles, makeStyles, withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
     overflow: "show",
   },
   img: {
-    width: "120px",
+    width: "140px",
   },
 });
 
@@ -96,7 +97,7 @@ export default function TabCar({ ...props }) {
                           />
                         </StyledTableCell>
                       ) : (
-                        <StyledTableCell align="right" key={index}>
+                        <StyledTableCell align="left" key={index}>
                           {row[ele]}
                         </StyledTableCell>
                       );

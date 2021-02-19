@@ -32,11 +32,7 @@ export const ShowCar = ({ fct }) => {
         // for the initial state
         if (level == 0) return;
         // when we chose a button
-        if (level <= 2) {
-          setDataCar(data);
-        } else {
-          rentalPrice(data);
-        }
+        rentalPrice(data);
       })
       .catch((err) => {
         console.error("Error ", err);
@@ -52,38 +48,42 @@ export const ShowCar = ({ fct }) => {
       // @ts-ignore
       setDataCar(
         data.map((car) => {
-          if (level == 4) {
-            let percentage = 1;
-            if (drtWanted > 1 && drtWanted < 5) {
-              percentage = 0.9;
-            } else if (drtWanted > 4 && drtWanted < 11) {
-              percentage = 0.7;
-            } else if (drtWanted > 10) {
-              percentage = 0.5;
-            }
-            if (percentage != 1) {
-              nameProperties =
-                "pricePerDay -" + Math.round((1 - percentage) * 100) + "%";
-              // we put the decreasing price
-              delete car["rentalCost"];
-              const priceKm = car.pricePerKm;
-              delete car.pricePerKm;
-              Object.keys(car).forEach((key) => {
-                if (key.includes("%")) {
-                  delete car[key];
-                }
-              });
+          // we convert all the price in Euro
+          car.pricePerKm /= 100;
+          car.pricePerDay /= 100;
+          if (level > 2) {
+            if (level == 4) {
+              // to put a degressive price
+              let percentage = 1;
+              if (drtWanted > 1 && drtWanted < 5) {
+                percentage = 0.9;
+              } else if (drtWanted > 4 && drtWanted < 11) {
+                percentage = 0.7;
+              } else if (drtWanted > 10) {
+                percentage = 0.5;
+              }
+              if (percentage != 1) {
+                nameProperties =
+                  "pricePerDay -" + Math.round((1 - percentage) * 100) + "%";
+                // we replace the columns
 
-              car[nameProperties] = car.pricePerDay * percentage;
-              car["pricePerKm"] = priceKm;
+                const priceKm = car.pricePerKm;
+                const priceDay = Math.round(car.pricePerDay * percentage);
+                delete car.pricePerDay;
+                delete car["rentalCost"];
+                delete car.pricePerKm;
+
+                car[nameProperties] = priceDay;
+                car["pricePerKm"] = priceKm;
+              }
             }
+            // we apply the new price for the computation
+            const pricePerDayReal =
+              nameProperties === "" ? car.pricePerDay : car[nameProperties];
+            // we convert the price in "centime" to euros
+            car["rentalCost (eur)"] =
+              pricePerDayReal * drtWanted + car.pricePerKm * dstWanted;
           }
-          // we apply the new price for the computation
-          const pricePerDayReal =
-            nameProperties === "" ? car.pricePerDay : car[nameProperties];
-          // we convert the price in "centime" to euros
-          car["rentalCost"] =
-            pricePerDayReal * drtWanted + car.pricePerKm * dstWanted;
           return car;
         })
       );
@@ -156,6 +156,7 @@ export const ShowCar = ({ fct }) => {
             />
           </article>
         )}
+        <p>Nb : All prices are in euros (€)</p>
         <TabCar ctn={dataCar} />
       </section>
     </div>
